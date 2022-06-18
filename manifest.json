@@ -1,10 +1,10 @@
 {
-	"id": "obsidian-sample-plugin",
-	"name": "Sample Plugin",
+	"id": "obsidian-gnuplot",
+	"name": "Obsidian GnuPlot",
 	"version": "1.0.1",
 	"minAppVersion": "0.12.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"isDesktopOnly": false
+	"description": "This plugin turns gnuplot code blocks into plots",
+	"author": "Yigit Colakoglu",
+	"authorUrl": "https://yigitcolakoglu.com",
+	"isDesktopOnly": true
 }
