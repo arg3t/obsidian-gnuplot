@@ -1,73 +1,62 @@
-# Obsidian Sample Plugin
+# Obsidian GnuPlot Plugin
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+This is a very barebones plugin for drawing plots in obsidian simply by
+inserting code blocks like so:
 
-This project uses Typescript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+````
+```plot
+plot sin(x)
+```
+````
 
-**Note:** The Obsidian API is still in early alpha and is subject to change at any time!
+When you switch to viewer mode, the plugin runs the gnuplot binary and displays
+the resulting plot as an image.
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Changes the default font color to red using `styles.css`.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+The text within the code block is executed as-is within gnuplot. The plugin first runs
+a predefined set of commands in order to make the resulting plot look better.
 
-## First time developing plugins?
+You can tweak with the initialization commands and change the path of the gnuplot
+binary in your settings.
 
-Quick starting guide for new plugin devs:
+The following is the init commands I use and an example plot generated with it:
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+```
+set terminal svg enhanced background rgb 'white'
 
-## Releasing new releases
+set xzeroaxis
+set yzeroaxis
+set zzeroaxis
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+set border 0
+set xtics axis
+set ytics axis
 
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
+set xtics add ("" 0)
+set ytics add ("" 0)
 
-## Adding your plugin to the community plugin list
+set tics scale 0.4
 
-- Check https://github.com/obsidianmd/obsidian-releases/blob/master/plugin-review.md
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+set style line 50 lt 1 lc rgb "white" lw 1
+set key textcolor rgb "white"
 
-## How to use
+set border ls 50
+set xzeroaxis ls 50
+set yzeroaxis ls 50
+```
 
-- Clone this repo.
-- `npm i` or `yarn` to install dependencies
-- `npm run dev` to start compilation in watch mode.
+Inserting 
 
-## Manually installing the plugin
+````
+```plot
+plot sin(x) ls 1
+````
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+into obsidian displays this image:
 
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint .\src\`
+![Plot generated](screenshot.png)
 
-
-## API Documentation
-
-See https://github.com/obsidianmd/obsidian-api
+## ⚠️  Contributions
+This is a very barebones plugin and all it essentially does is run a seperate
+gnuplot binary and insert its output to the preview screen. It works, but it
+can definitely use some work. I am VERY open to contributions/improvements on
+it so please feel free to send a pull request.
