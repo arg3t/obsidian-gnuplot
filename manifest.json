@@ -1,7 +1,7 @@
 {
 	"id": "obsidian-gnuplot",
 	"name": "Obsidian GnuPlot",
-	"version": "1.0.1",
+	"version": "1.0.0",
 	"minAppVersion": "0.12.0",
 	"description": "This plugin turns gnuplot code blocks into plots",
 	"author": "Yigit Colakoglu",
